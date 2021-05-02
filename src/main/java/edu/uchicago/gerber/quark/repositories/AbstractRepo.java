@@ -29,7 +29,7 @@ public abstract class AbstractRepo {
         Map<String, AttributeValue> item = new HashMap<>();
         item.put(MOVIE_ID_COL, AttributeValue.builder().s(movie.getId()).build());
         item.put(MOVIE_TITLE_COL, AttributeValue.builder().s(movie.getTitle()).build());
-        item.put(MOVIE_YEAR_COL, AttributeValue.builder().n(movie.getId()).build());
+        item.put(MOVIE_YEAR_COL, AttributeValue.builder().n(String.valueOf(movie.getYear())).build());
 
         return PutItemRequest.builder()
                 .tableName(getTableName())

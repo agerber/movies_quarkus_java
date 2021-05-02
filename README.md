@@ -1,5 +1,39 @@
 # movies-quarkus project
 
+//run a local amazonDynamoDB container
+docker run --publish 8000:8000 amazon/dynamodb-local:1.11.477 -jar DynamoDBLocal.jar -inMemory -sharedDb
+
+This starts a DynamoDB instance that is accessible on port 8000. You can check it’s running by accessing the web shell on http://localhost:8000/shell.
+
+Have a look at the Setting Up DynamoDB Local guide for other options to run DynamoDB.
+
+Open http://localhost:8000/shell in your browser.
+
+Copy and paste the following code to the shell and run it:
+
+
+var params = {
+    TableName: 'Movies',
+    KeySchema: [{ AttributeName: 'id', KeyType: 'HASH' }],
+    AttributeDefinitions: [{  AttributeName: 'id', AttributeType: 'S', }],
+    ProvisionedThroughput: { ReadCapacityUnits: 1, WriteCapacityUnits: 1, }
+};
+
+dynamodb.createTable(params, function(err, data) {
+    if (err) ppJson(err);
+    else ppJson(data);
+
+});
+
+
+//make sure you add the following dep to your pom file
+
+<dependency>
+    <groupId>software.amazon.awssdk</groupId>
+    <artifactId>url-connection-client</artifactId>
+</dependency>
+
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
