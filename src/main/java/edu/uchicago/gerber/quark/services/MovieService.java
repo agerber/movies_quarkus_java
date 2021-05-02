@@ -1,22 +1,25 @@
 package edu.uchicago.gerber.quark.services;
 
 import edu.uchicago.gerber.quark.models.Movie;
-
+import edu.uchicago.gerber.quark.repositories.MovieRepo;
+import javax.enterprise.context.ApplicationScoped;
+import javax.inject.Inject;
 import java.util.List;
 
+@ApplicationScoped
 public class MovieService {
 
+    @Inject
+    MovieRepo movieRepo;
+
     public List<Movie> findAll(){
-        //use repo to call findall
-        return null;
+       return movieRepo.findAll();
     }
     public List<Movie> add(Movie movie){
-        //use repo to call add
-        return null;
+        return movieRepo.add(movie);
     }
     public Movie get(String id){
-        //use repo to get with id
-        return null;
+        return movieRepo.get(id);
     }
 
 
