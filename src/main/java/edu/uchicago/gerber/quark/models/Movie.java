@@ -1,5 +1,8 @@
 package edu.uchicago.gerber.quark.models;
 
+import io.quarkus.runtime.annotations.RegisterForReflection;
+
+@RegisterForReflection
 public class Movie {
 
     private String id;

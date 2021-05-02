@@ -1,7 +1,9 @@
 package edu.uchicago.gerber.quark.resources;
 
 import edu.uchicago.gerber.quark.models.Movie;
+import edu.uchicago.gerber.quark.services.MovieService;
 
+import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
@@ -11,23 +13,24 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class MoviesResource {
 
+    @Inject
+    MovieService movieService;
+
     @GET
     public List<Movie> getAll() {
-        //use service to get movies
-        return null;
+       return movieService.findAll();
     }
 
     @POST
     public List<Movie> add(Movie movie){
-        //use service to add movie
+        movieService.add(movie);
         return getAll();
     }
 
     @GET
     @Path("{id}")
     public Movie getFromId(@PathParam("id") String id){
-        //use service to return movie based on id
-        return null;
+      return movieService.get(id);
     }
 
 }
