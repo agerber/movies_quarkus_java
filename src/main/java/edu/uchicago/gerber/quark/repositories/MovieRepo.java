@@ -30,7 +30,12 @@ public class MovieRepo extends AbstractRepo {
     }
 
     public Movie get(String id) {
-        return transform(dynamoDB.getItem(getRequest(id)).item());
+        Map<String, AttributeValue> item;
+        item =dynamoDB.getItem(getRequest(id)).item();
+        if (null == item || item.size() == 0){
+            return null;
+        }
+        return transform(item);
     }
 
     private Movie transform(Map<String, AttributeValue> item){
