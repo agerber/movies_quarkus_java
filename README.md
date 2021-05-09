@@ -1,5 +1,11 @@
 # movies-quarkus project
 
+fire up mongo:
+docker run -ti --rm -p 27017:27017 mongo:4.0
+
+
+
+
 mvn quarkus:add-extension -Dextensions="container-image-docker"
 
 

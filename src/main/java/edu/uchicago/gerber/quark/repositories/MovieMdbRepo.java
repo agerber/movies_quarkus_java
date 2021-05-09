@@ -1,6 +1,7 @@
 package edu.uchicago.gerber.quark.repositories;
 
 
+import com.github.javafaker.Faker;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
@@ -43,7 +44,7 @@ public class MovieMdbRepo {
         Document document = new Document()
                 .append(AbstractDdbRepo.MOVIE_ID_COL, movie.getId())
                 .append(AbstractDdbRepo.MOVIE_TITLE_COL, movie.getTitle())
-                .append(AbstractDdbRepo.MOVIE_YEAR_COL, movie.getYear());
+                .append(AbstractDdbRepo.MOVIE_YEAR_COL, String.valueOf(movie.getYear()));
         getCollection().insertOne(document);
         return findAll();
     }
@@ -51,14 +52,11 @@ public class MovieMdbRepo {
 
 
 
-//    public Movie get(String id) {
-//        Map<String, AttributeValue> item;
-//        item =dynamoDB.getItem(getRequest(id)).item();
-//        if (null == item || item.size() == 0){
-//            return null;
-//        }
-//        return transform(item);
-//    }
+    public Movie get(String id) {
+       // getCollection().find({AbstractDdbRepo.MOVIE_ID_COL: id},);
+        Faker faker = new Faker();
+        return  new Movie(id, faker.beer().name(), faker.hashCode());
+    }
 
 
 
