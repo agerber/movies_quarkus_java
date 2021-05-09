@@ -1,5 +1,6 @@
 package edu.uchicago.gerber.quark.resources;
 
+import com.github.javafaker.Faker;
 import edu.uchicago.gerber.quark.models.Movie;
 import edu.uchicago.gerber.quark.services.MovieService;
 
@@ -7,6 +8,8 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Path("/movies")
@@ -36,6 +39,12 @@ public class MoviesResource {
             throw new NotFoundException("The Movie with id " + id + " was not found");
         }
         return movie;
+    }
+    @GET
+    @Path("/test")
+    public List<Movie> testMe(){
+        Faker faker = new Faker();
+       return Stream.generate(() -> new Movie(faker.chuckNorris().fact(), faker.beer().name(), faker.hashCode() )).limit(5).collect(Collectors.toList());
     }
 
 }
