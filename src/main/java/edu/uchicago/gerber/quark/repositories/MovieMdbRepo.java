@@ -67,42 +67,5 @@ public class MovieMdbRepo {
         return mongoClient.getDatabase("movies").getCollection("movies");
     }
 
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//    public List<Movie> list(){
-//        List<Movie> list = new ArrayList<>();
-//        MongoCursor<Document> cursor = getCollection().find().iterator();
-//
-//        try {
-//            while (cursor.hasNext()) {
-//                Document document = cursor.next();
-//                Movie movie = new Movie();
-////                movie.setName(document.getString("name"));
-////                movie.setDescription(document.getString("description"));
-//                list.add(movie);
-//            }
-//        } finally {
-//            cursor.close();
-//        }
-//        return list;
-//    }
-//
-//    public void add(Movie fruit){
-//        Document document = new Document()
-////                .append("name", fruit.getName())
-////                .append("description", fruit.getDescription());
-//        getCollection().insertOne(document);
-//    }
-//
-//    private MongoCollection getCollection(){
-//        return mongoClient.getDatabase("fruit").getCollection("fruit");
-//    }
 
 }

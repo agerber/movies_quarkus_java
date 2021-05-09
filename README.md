@@ -1,13 +1,11 @@
 # movies-quarkus project
 
-fire up mongo:
+//to use mongo:
 docker run -ti --rm -p 27017:27017 mongo:4.0
 
 
 
-
-mvn quarkus:add-extension -Dextensions="container-image-docker"
-
+//to use dynamodb
 
 //run a local amazonDynamoDB container
 docker run --publish 8000:8000 amazon/dynamodb-local:1.11.477 -jar DynamoDBLocal.jar -inMemory -sharedDb
@@ -33,6 +31,10 @@ dynamodb.createTable(params, function(err, data) {
     else ppJson(data);
 
 });
+
+
+
+
 
 
 //make sure you add the following dep to your pom file
