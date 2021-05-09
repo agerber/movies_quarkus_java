@@ -10,7 +10,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractRepo {
+public abstract class AbstractDdbRepo {
 
     public static final String MOVIE_ID_COL = "id";
     public static final String MOVIE_TITLE_COL = "title";
@@ -46,5 +46,16 @@ public abstract class AbstractRepo {
                 .key(key)
                 .attributesToGet(MOVIE_ID_COL, MOVIE_TITLE_COL,MOVIE_YEAR_COL )
                 .build();
+    }
+
+    protected Movie transform(Map<String, AttributeValue> item){
+        Movie movie = new Movie();
+        if (item != null && !item.isEmpty()) {
+
+            movie.setId(item.get(AbstractDdbRepo.MOVIE_ID_COL).s());
+            movie.setTitle(item.get(AbstractDdbRepo.MOVIE_TITLE_COL).s());
+            movie.setYear(Integer.parseInt(item.get(AbstractDdbRepo.MOVIE_YEAR_COL).n()));
+        }
+        return movie;
     }
 }
