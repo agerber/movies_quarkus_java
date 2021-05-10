@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class MovieDdbRepo extends AbstractDdbRepo {
+public class MovieDynamodbRepo extends AbstractDynamodbRepo {
 
     @Inject
     DynamoDbClient dynamoDB;
@@ -43,9 +43,9 @@ public class MovieDdbRepo extends AbstractDdbRepo {
         Movie movie = new Movie();
         if (item != null && !item.isEmpty()) {
 
-            movie.setId(item.get(AbstractDdbRepo.MOVIE_ID_COL).s());
-            movie.setTitle(item.get(AbstractDdbRepo.MOVIE_TITLE_COL).s());
-            movie.setYear(Integer.parseInt(item.get(AbstractDdbRepo.MOVIE_YEAR_COL).n()));
+            movie.setId(item.get(AbstractDynamodbRepo.MOVIE_ID_COL).s());
+            movie.setTitle(item.get(AbstractDynamodbRepo.MOVIE_TITLE_COL).s());
+            movie.setYear(Integer.parseInt(item.get(AbstractDynamodbRepo.MOVIE_YEAR_COL).n()));
         }
         return movie;
     }

@@ -22,10 +22,11 @@ import java.util.stream.Stream;
 
 
 @ApplicationScoped
-public class MovieMdbRepo extends AbstractDdbRepo{
+public class MovieMongodbRepo {
     @Inject
     MongoClient mongoClient;
-   public final int PAGE_SIZE = 20;
+
+    public final int PAGE_SIZE = 20;
 
     void onStart(@Observes StartupEvent ev) {
 
@@ -42,7 +43,7 @@ public class MovieMdbRepo extends AbstractDdbRepo{
                             //allow Mongo to assign the id automatically
                             //m.setId(faker.chuckNorris().fact());
                             m.setTitle(faker.beer().name());
-                            m.setYear(faker.beer().name().hashCode());
+                            m.setYear(faker.chuckNorris().fact().hashCode());
                             return m;
                         }
 
@@ -51,8 +52,8 @@ public class MovieMdbRepo extends AbstractDdbRepo{
                         .map(movie-> new Document()
                                 //allow Mongo to assign the id automatically
                                 //.append(AbstractDdbRepo.MOVIE_ID_COL, movie.getId())
-                                .append(AbstractDdbRepo.MOVIE_TITLE_COL, movie.getTitle())
-                                .append(AbstractDdbRepo.MOVIE_YEAR_COL, String.valueOf(movie.getYear())))
+                                .append(AbstractDynamodbRepo.MOVIE_TITLE_COL, movie.getTitle())
+                                .append(AbstractDynamodbRepo.MOVIE_YEAR_COL, String.valueOf(movie.getYear())))
                         .limit(1000)
                         .collect(Collectors.toList()));
     }
@@ -67,8 +68,8 @@ public class MovieMdbRepo extends AbstractDdbRepo{
                 Movie movie = new Movie();
                 //set the id to the object-id which was generated upon insert into db
                 movie.setId(document.getObjectId("_id").toHexString());
-                movie.setTitle(document.getString(AbstractDdbRepo.MOVIE_TITLE_COL));
-                movie.setYear(Integer.parseInt(document.getString(AbstractDdbRepo.MOVIE_YEAR_COL)));
+                movie.setTitle(document.getString(AbstractDynamodbRepo.MOVIE_TITLE_COL));
+                movie.setYear(Integer.parseInt(document.getString(AbstractDynamodbRepo.MOVIE_YEAR_COL)));
                 list.add(movie);
             }
         }
@@ -81,8 +82,8 @@ public class MovieMdbRepo extends AbstractDdbRepo{
         Document document = new Document()
                 //allow Mongo to assign the id automatically
                 //.append(AbstractDdbRepo.MOVIE_ID_COL, movie.getId())
-                .append(AbstractDdbRepo.MOVIE_TITLE_COL, movie.getTitle())
-                .append(AbstractDdbRepo.MOVIE_YEAR_COL, String.valueOf(movie.getYear()));
+                .append(AbstractDynamodbRepo.MOVIE_TITLE_COL, movie.getTitle())
+                .append(AbstractDynamodbRepo.MOVIE_YEAR_COL, String.valueOf(movie.getYear()));
         getCollection().insertOne(document);
         return findAll();
     }
@@ -129,8 +130,8 @@ public class MovieMdbRepo extends AbstractDdbRepo{
         if (document != null && !document.isEmpty()) {
 
             movie.setId(document.getObjectId("_id").toHexString());
-            movie.setTitle(document.getString(AbstractDdbRepo.MOVIE_TITLE_COL));
-            movie.setYear(Integer.parseInt(document.getString(AbstractDdbRepo.MOVIE_YEAR_COL)));
+            movie.setTitle(document.getString(AbstractDynamodbRepo.MOVIE_TITLE_COL));
+            movie.setYear(Integer.parseInt(document.getString(AbstractDynamodbRepo.MOVIE_YEAR_COL)));
         }
         return movie;
 

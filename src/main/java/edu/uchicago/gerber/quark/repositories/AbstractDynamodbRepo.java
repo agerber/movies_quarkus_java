@@ -10,7 +10,7 @@ import software.amazon.awssdk.services.dynamodb.model.ScanRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractDdbRepo {
+public abstract class AbstractDynamodbRepo {
 
     public static final String MOVIE_ID_COL = "id";
     public static final String MOVIE_TITLE_COL = "title";
