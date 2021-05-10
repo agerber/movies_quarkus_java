@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 
 @ApplicationScoped
-public class MovieMdbRepo {
+public class MovieMdbRepo extends AbstractDdbRepo{
     @Inject
     MongoClient mongoClient;
 
@@ -93,6 +93,29 @@ public class MovieMdbRepo {
     private MongoCollection getCollection(){
         return mongoClient.getDatabase("movies").getCollection("movies");
     }
+
+
+
+    public List<Movie> paged( int pageNumber) {
+
+        final int PAGE_SIZE = 20;
+
+        List<Movie> list = new ArrayList<>();
+        try {
+
+            MongoCursor<Document> cursor = getCollection().find().skip(PAGE_SIZE * (pageNumber - 1)).limit(PAGE_SIZE).iterator();
+            while (cursor.hasNext()) {
+                Document document = cursor.next();
+                list.add(transform(document));
+            }
+            cursor.close();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
 
 
 }

@@ -48,6 +48,7 @@ public abstract class AbstractDdbRepo {
                 .build();
     }
 
+    //for dynamodb
     protected Movie transform(Map<String, AttributeValue> item){
         Movie movie = new Movie();
         if (item != null && !item.isEmpty()) {
@@ -57,5 +58,18 @@ public abstract class AbstractDdbRepo {
             movie.setYear(Integer.parseInt(item.get(AbstractDdbRepo.MOVIE_YEAR_COL).n()));
         }
         return movie;
+    }
+
+    //for mongo
+    protected Movie transform(org.bson.Document document){
+        Movie movie = new Movie();
+        if (document != null && !document.isEmpty()) {
+
+            movie.setId(document.getString(AbstractDdbRepo.MOVIE_ID_COL));
+            movie.setTitle(document.getString(AbstractDdbRepo.MOVIE_TITLE_COL));
+            movie.setYear(Integer.parseInt(document.getString(AbstractDdbRepo.MOVIE_YEAR_COL)));
+        }
+        return movie;
+
     }
 }

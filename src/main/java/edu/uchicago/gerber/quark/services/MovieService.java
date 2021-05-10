@@ -27,6 +27,7 @@ public class MovieService {
     public Movie get(String id){
         return movieRepo.get(id);
     }
+    public List<Movie> paged(int page){ return  movieRepo.paged(page);}
 
 
 }

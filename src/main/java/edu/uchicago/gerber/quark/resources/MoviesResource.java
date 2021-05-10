@@ -47,4 +47,10 @@ public class MoviesResource {
        return Stream.generate(() -> new Movie(faker.chuckNorris().fact(), faker.beer().name(), faker.hashCode() )).limit(5).collect(Collectors.toList());
     }
 
+    //https://www.technicalkeeda.com/java-mongodb-tutorials/java-mongodb-driver-3-3-0-pagination-example
+    @GET
+    @Path("/paged/{page}")
+    public List<Movie> paged(@PathParam("page") int page){
+       return movieService.paged(page);
+    }
 }
