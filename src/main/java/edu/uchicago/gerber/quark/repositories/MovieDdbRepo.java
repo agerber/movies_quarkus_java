@@ -38,5 +38,22 @@ public class MovieDdbRepo extends AbstractDdbRepo {
         return transform(item);
     }
 
+    //for dynamodb
+    protected Movie transform(Map<String, AttributeValue> item){
+        Movie movie = new Movie();
+        if (item != null && !item.isEmpty()) {
+
+            movie.setId(item.get(AbstractDdbRepo.MOVIE_ID_COL).s());
+            movie.setTitle(item.get(AbstractDdbRepo.MOVIE_TITLE_COL).s());
+            movie.setYear(Integer.parseInt(item.get(AbstractDdbRepo.MOVIE_YEAR_COL).n()));
+        }
+        return movie;
+    }
+
+    public List<Movie> paged(int page) {
+        //just return the entire recordset for Ddb for now. See mongoDB implementation of paged.
+        return  findAll();
+    }
+
 
 }
