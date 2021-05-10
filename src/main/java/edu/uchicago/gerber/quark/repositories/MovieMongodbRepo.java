@@ -41,15 +41,11 @@ public class MovieMongodbRepo {
 
         getCollection().insertMany(
                 Stream.generate(() ->
-                        {
-                            Movie m = new Movie();
-                            m.setTitle(faker.beer().name());
-                            m.setYear(faker.chuckNorris().fact().hashCode());
-                            return m;
-                        })
-                        .map(m -> new Document()
-                                .append(MOVIE_TITLE_COL, m.getTitle())
-                                .append(MOVIE_YEAR_COL, String.valueOf(m.getYear())))
+
+                        //mongo will auto-geneate the _id field for us.
+                         new Document()
+                                    .append(MOVIE_TITLE_COL, faker.beer().name())
+                                    .append(MOVIE_YEAR_COL, String.valueOf(faker.chuckNorris().fact().hashCode())))
                         .limit(1000)
                         .collect(Collectors.toList()));
     }
