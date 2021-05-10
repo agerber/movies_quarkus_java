@@ -1,7 +1,7 @@
 package edu.uchicago.gerber.quark.services;
 
 import edu.uchicago.gerber.quark.models.Movie;
-import edu.uchicago.gerber.quark.repositories.MovieDdbRepo;
+import edu.uchicago.gerber.quark.repositories.MovieMdbRepo;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -12,11 +12,11 @@ public class MovieService {
 
     //to use MongoDB, uncomment MovieMdbRepo
 
-//    @Inject
-//    MovieMdbRepo movieRepo;
-
     @Inject
-    MovieDdbRepo movieRepo;
+    MovieMdbRepo movieRepo;
+
+//    @Inject
+//    MovieDdbRepo movieRepo;
 
     public List<Movie> findAll(){
        return movieRepo.findAll();
