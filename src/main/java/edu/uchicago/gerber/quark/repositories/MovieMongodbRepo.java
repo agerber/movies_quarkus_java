@@ -128,7 +128,7 @@ public class MovieMongodbRepo implements MovieServiceInterface {
 
 
     private MongoCollection getCollection() {
-        return mongoClient.getDatabase("movies").getCollection("movies");
+        return mongoClient.getDatabase("movies_db").getCollection("movies_collection");
     }
 
 
