@@ -39,7 +39,7 @@ public class MovieDynamodbRepo extends AbstractDynamodbRepo implements MovieRepo
     }
 
     //for dynamodb
-    protected Movie transform(Map<String, AttributeValue> item){
+    private Movie transform(Map<String, AttributeValue> item){
         Movie movie = new Movie();
         if (item != null && !item.isEmpty()) {
 

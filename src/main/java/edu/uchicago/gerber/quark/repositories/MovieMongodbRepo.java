@@ -113,7 +113,7 @@ public class MovieMongodbRepo implements MovieRepoInterface {
     }
 
     //for mongo
-    protected Movie transform(org.bson.Document document) {
+    private Movie transform(org.bson.Document document) {
         Movie movie = new Movie();
         if (document != null && !document.isEmpty()) {
 
