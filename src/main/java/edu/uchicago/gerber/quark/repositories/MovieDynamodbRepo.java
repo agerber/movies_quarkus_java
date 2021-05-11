@@ -2,6 +2,7 @@ package edu.uchicago.gerber.quark.repositories;
 
 
 import edu.uchicago.gerber.quark.models.Movie;
+import edu.uchicago.gerber.quark.services.MovieServiceInterface;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
@@ -12,7 +13,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class MovieDynamodbRepo extends AbstractDynamodbRepo {
+public class MovieDynamodbRepo extends AbstractDynamodbRepo implements MovieServiceInterface {
 
     @Inject
     DynamoDbClient dynamoDB;
@@ -23,12 +24,12 @@ public class MovieDynamodbRepo extends AbstractDynamodbRepo {
                 .map(this::transform)
                 .collect(Collectors.toList());
     }
-
+    @Override
     public List<Movie> add(Movie movie) {
         dynamoDB.putItem(putRequest(movie));
         return findAll();
     }
-
+    @Override
     public Movie get(String id) {
         Map<String, AttributeValue> item;
         item =dynamoDB.getItem(getRequest(id)).item();
@@ -49,7 +50,7 @@ public class MovieDynamodbRepo extends AbstractDynamodbRepo {
         }
         return movie;
     }
-
+    @Override
     public List<Movie> paged(int page) {
         //just return the entire recordset for Ddb for now. See mongoDB implementation of paged.
         return  findAll();

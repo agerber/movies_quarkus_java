@@ -8,6 +8,7 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import edu.uchicago.gerber.quark.models.Movie;
+import edu.uchicago.gerber.quark.services.MovieServiceInterface;
 import io.quarkus.runtime.StartupEvent;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -22,7 +23,7 @@ import java.util.stream.Stream;
 
 
 @ApplicationScoped
-public class MovieMongodbRepo {
+public class MovieMongodbRepo implements MovieServiceInterface {
     @Inject
     MongoClient mongoClient;
 
@@ -49,7 +50,7 @@ public class MovieMongodbRepo {
                         .limit(1000)
                         .collect(Collectors.toList()));
     }
-
+    @Override
     public List<Movie> findAll() {
 
         List<Movie> list = new ArrayList<>();
@@ -67,7 +68,7 @@ public class MovieMongodbRepo {
         return list;
     }
 
-
+   @Override
     public List<Movie> add(Movie movie) {
         Document document = new Document()
                 .append(MOVIE_TITLE_COL, movie.getTitle())
@@ -76,7 +77,7 @@ public class MovieMongodbRepo {
         return findAll();
     }
 
-
+    @Override
     public Movie get(String id) {
 
         BasicDBObject query = new BasicDBObject();
@@ -94,7 +95,7 @@ public class MovieMongodbRepo {
 
         return movies.get(0);
     }
-
+    @Override
     public List<Movie> paged(int pageNumber) {
 
         List<Movie> list = new ArrayList<>();
