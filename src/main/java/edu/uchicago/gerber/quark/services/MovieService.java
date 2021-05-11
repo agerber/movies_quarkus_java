@@ -10,13 +10,13 @@ import java.util.List;
 @ApplicationScoped
 public class MovieService {
 
-    //to use MongoDB, uncomment MovieMdbRepo
-
+    //to use MongoDB, read the README.md first, then uncomment MovieMongodbRepo
     @Inject
     MovieMongodbRepo movieRepo;
 
-//    @Inject
-//    MovieDdbRepo movieRepo;
+    //to use DynamoDB, read the README.md first, also comment MovieMongodbRepo above, and uncomment MovieDynamodbRepo below
+    // @Inject
+    //MovieDynamodbRepo movieRepo;
 
     public List<Movie> findAll(){
        return movieRepo.findAll();
