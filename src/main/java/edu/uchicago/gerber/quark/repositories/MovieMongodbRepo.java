@@ -8,7 +8,6 @@ import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import edu.uchicago.gerber.quark.models.Movie;
-import edu.uchicago.gerber.quark.services.MovieServiceInterface;
 import io.quarkus.runtime.StartupEvent;
 import org.bson.Document;
 import org.bson.types.ObjectId;
@@ -23,7 +22,7 @@ import java.util.stream.Stream;
 
 
 @ApplicationScoped
-public class MovieMongodbRepo implements MovieServiceInterface {
+public class MovieMongodbRepo implements MovieRepoInterface {
     @Inject
     MongoClient mongoClient;
 

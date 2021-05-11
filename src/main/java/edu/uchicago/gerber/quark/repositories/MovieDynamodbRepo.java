@@ -2,7 +2,6 @@ package edu.uchicago.gerber.quark.repositories;
 
 
 import edu.uchicago.gerber.quark.models.Movie;
-import edu.uchicago.gerber.quark.services.MovieServiceInterface;
 import software.amazon.awssdk.services.dynamodb.DynamoDbClient;
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue;
 
@@ -13,7 +12,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 @ApplicationScoped
-public class MovieDynamodbRepo extends AbstractDynamodbRepo implements MovieServiceInterface {
+public class MovieDynamodbRepo extends AbstractDynamodbRepo implements MovieRepoInterface {
 
     @Inject
     DynamoDbClient dynamoDB;

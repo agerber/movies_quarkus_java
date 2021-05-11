@@ -1,10 +1,10 @@
-package edu.uchicago.gerber.quark.services;
+package edu.uchicago.gerber.quark.repositories;
 
 import edu.uchicago.gerber.quark.models.Movie;
 
 import java.util.List;
 
-public interface MovieServiceInterface {
+public interface MovieRepoInterface {
 
     List<Movie> findAll();
     List<Movie> add(Movie movie);
